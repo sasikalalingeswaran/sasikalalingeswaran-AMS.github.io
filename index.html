@@ -93,6 +93,10 @@ h3 {
     border-radius: 7px;
 }
 
+.dashboard-nav-btn {
+    background: #2d7ff9 !important;
+}
+
 .login-box {
     width: 400px;
     max-width: 92%;
@@ -550,6 +554,14 @@ th {
 
         <div class="nav-actions">
 
+            <button
+                id="viewDashboardBtn"
+                class="dashboard-nav-btn hidden"
+                onclick="viewFacultyDashboard()"
+            >
+                View Dashboard
+            </button>
+
             <button onclick="logout()">
                 Logout
             </button>
@@ -573,7 +585,7 @@ th {
              FACULTY DASHBOARD
         ================================================== -->
 
-        <div id="facultyAnalyticsSection" class="analytics-dashboard">
+        <div id="facultyAnalyticsSection" class="analytics-dashboard hidden">
 
             <div class="card">
                 <h2>Faculty Dashboard</h2>
@@ -1514,6 +1526,16 @@ document.getElementById(
     ).classList.add("hidden");
 
 
+    const dashboardButton =
+        document.getElementById("viewDashboardBtn");
+
+    if (dashboardButton) {
+        dashboardButton.classList.toggle(
+            "hidden",
+            user.role !== "faculty"
+        );
+    }
+
     if (user.role === "faculty") {
 
         document.getElementById(
@@ -1541,6 +1563,19 @@ document.getElementById(
 
 
 
+function viewFacultyDashboard() {
+
+    const user = getCurrentUser();
+
+    if (!user || user.role !== "faculty") {
+        alert("Only faculty can view the dashboard.");
+        return;
+    }
+
+    window.location.href = "faculty-dashboard.html";
+}
+
+
 /* =====================================================
    FACULTY NAVIGATION
 ===================================================== */
@@ -1563,6 +1598,13 @@ function showFacultyDashboard() {
 ===================================================== */
 
 function logout() {
+
+    const dashboardButton =
+        document.getElementById("viewDashboardBtn");
+
+    if (dashboardButton) {
+        dashboardButton.classList.add("hidden");
+    }
 
     localStorage.removeItem(
         CURRENT_USER_KEY
