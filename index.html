@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Assignment Management System</title>
-<link rel="icon" type="image/x-jpg" href="/icons.jpg">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Playwrite+DE+LA+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link
+    rel="icon"
+    type="image/x-jpg"
+    href="/icons.png"
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&family=Nunito:wght@200..1000&family=Pacifico&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Quicksand:wght@300..700&family=Raleway:wght@100..900&display=swap"
+    rel="stylesheet"
+>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- SheetJS - Excel Export -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
 
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -15,7 +36,7 @@
 }
 
 body {
-    font-family: poppins;
+    font-family: Poppins, sans-serif;
     background: #f4f6f8;
     color: #222;
 }
@@ -99,7 +120,7 @@ h3 {
     text-align: center;
     padding: 10px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 500;
     color: #667085;
     transition: color 0.25s ease;
     user-select: none;
@@ -191,6 +212,27 @@ h3 {
     border: none;
     padding: 9px 14px;
     border-radius: 7px;
+}
+
+
+.export-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.excel-btn {
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+.excel-btn:hover {
+    background: #157347;
 }
 
 .primary-btn:disabled,
@@ -301,26 +343,63 @@ th {
     word-break: break-word;
 }
 
+
+/* =====================================================
+   FACULTY DASHBOARD CHARTS
+===================================================== */
+
+.analytics-dashboard {
+    margin-bottom: 25px;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.chart-container {
+    position: relative;
+    height: 350px;
+}
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 900px) {
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 600px) {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .login-box {
-        margin-top: 35px;
-    }
-
-    th,
-    td {
-        font-size: 14px;
-        padding: 9px;
+    .nav-actions {
+        width: 100%;
     }
 }
+
 </style>
+
 </head>
 
+
 <body>
+
 
 <!-- =====================================================
      LOGIN PAGE
@@ -330,15 +409,24 @@ th {
 
     <div class="card login-box">
 
-        <h1>Assignment Management System</h1>
+        <h1>
+            Assignment Management System
+        </h1>
 
-        <h3>Login</h3>
+        <h3>
+            Login
+        </h3>
+
 
         <form id="loginForm">
 
-            <div class="role-switch student" id="roleSwitch">
+            <div
+                class="role-switch student"
+                id="roleSwitch"
+            >
 
                 <div class="slider"></div>
+
 
                 <input
                     type="radio"
@@ -351,6 +439,7 @@ th {
                 <label for="roleStudent">
                     Student
                 </label>
+
 
                 <input
                     type="radio"
@@ -365,9 +454,10 @@ th {
 
             </div>
 
+
             <div class="form-group">
 
-                <label for="username">
+                <label for="username" style="color: rgb(2, 2, 49);">
                     Username
                 </label>
 
@@ -380,9 +470,10 @@ th {
 
             </div>
 
+
             <div class="form-group">
 
-                <label for="password">
+                <label for="password" style="color: rgb(2, 2, 49);">
                     Password
                 </label>
 
@@ -394,6 +485,7 @@ th {
 
             </div>
 
+
             <button
                 class="primary-btn"
                 type="submit"
@@ -401,26 +493,47 @@ th {
                 Login
             </button>
 
+
             <p id="loginMessage"></p>
 
         </form>
 
+
         <hr style="margin:20px 0">
-        <div class="demo-box" style="display: none;">
-    <strong>Demo Login:</strong>
-    <div id="demoCredentials"></div>
-</div>
+
+
+        <div
+            class="demo-box"
+            style="display:none;"
+        >
+
+            <strong>
+                Demo Login:
+            </strong>
+
+            <div id="demoCredentials"></div>
+
+        </div>
 
     </div>
 
 </div>
 
 
+
 <!-- =====================================================
      MAIN APPLICATION
 ===================================================== -->
 
-<div id="appPage" class="hidden">
+<div
+    id="appPage"
+    class="hidden"
+>
+
+
+    <!-- =================================================
+         NAVBAR
+    ================================================== -->
 
     <div class="navbar">
 
@@ -434,11 +547,16 @@ th {
 
         </div>
 
-        <button onclick="logout()">
-            Logout
-        </button>
+
+        <div class="nav-actions">
+
+            <button onclick="logout()">
+                Logout
+            </button>
+        </div>
 
     </div>
+
 
 
     <!-- =================================================
@@ -450,11 +568,43 @@ th {
         class="container hidden"
     >
 
-        <div class="card">
 
-            <h2>
-                Faculty Dashboard
-            </h2>
+        <!-- =================================================
+             FACULTY DASHBOARD
+        ================================================== -->
+
+        <div id="facultyAnalyticsSection" class="analytics-dashboard">
+
+            <div class="card">
+                <h2>Faculty Dashboard</h2>
+                <p>Student submission and marks performance.</p>
+
+                <div class="chart-grid">
+
+                    <div class="chart-card">
+                        <h3>Student Submission Performance</h3>
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Student Marks Performance</h3>
+                        <div class="chart-container">
+                            <canvas id="marksPerformanceChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- =================================================
+             POST ASSIGNMENT
+        ================================================== -->
+
+        <div class="card">
 
             <button
                 class="primary-btn"
@@ -466,7 +616,10 @@ th {
         </div>
 
 
-        <!-- CREATE / EDIT -->
+
+        <!-- =================================================
+             CREATE / EDIT ASSIGNMENT
+        ================================================== -->
 
         <div
             id="createAssignmentCard"
@@ -477,12 +630,14 @@ th {
                 Post Assignment
             </h3>
 
+
             <form id="assignmentForm">
 
                 <input
                     type="hidden"
                     id="editAssignmentId"
                 >
+
 
                 <div class="form-group">
 
@@ -498,6 +653,7 @@ th {
 
                 </div>
 
+
                 <div class="form-group">
 
                     <label>
@@ -511,6 +667,7 @@ th {
                     >
 
                 </div>
+
 
                 <div class="form-group">
 
@@ -526,6 +683,7 @@ th {
 
                 </div>
 
+
                 <div class="actions">
 
                     <button
@@ -534,6 +692,7 @@ th {
                     >
                         Save Assignment
                     </button>
+
 
                     <button
                         class="secondary-btn"
@@ -545,6 +704,7 @@ th {
 
                 </div>
 
+
                 <p id="assignmentMessage"></p>
 
             </form>
@@ -552,7 +712,10 @@ th {
         </div>
 
 
-        <!-- POSTED ASSIGNMENTS -->
+
+        <!-- =================================================
+             POSTED ASSIGNMENTS
+        ================================================== -->
 
         <div class="card">
 
@@ -565,13 +728,29 @@ th {
         </div>
 
 
-        <!-- STUDENT SUBMISSIONS -->
+
+        <!-- =================================================
+             STUDENT SUBMISSIONS
+        ================================================== -->
 
         <div class="card">
 
-            <h3>
-                Student Submissions
-            </h3>
+            <div class="export-section">
+
+                <h3>
+                    Student Submissions
+                </h3>
+
+
+                <button
+                    class="excel-btn"
+                    onclick="downloadSubmissionsExcel()"
+                >
+                    Download 
+                </button>
+
+            </div>
+
 
             <div class="table-wrapper">
 
@@ -580,16 +759,39 @@ th {
                     <thead>
 
                         <tr>
-                            <th>Student</th>
-                            <th>Username</th>
-                            <th>Assignment</th>
-                            <th>Submitted At</th>
-                            <th>PDF</th>
-                            <th>Marks</th>
-                            <th>Action</th>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Username
+                            </th>
+
+                            <th>
+                                Assignment
+                            </th>
+
+                            <th>
+                                Submitted At
+                            </th>
+
+                            <th>
+                                PDF
+                            </th>
+
+                            <th>
+                                Marks
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
                         </tr>
 
                     </thead>
+
 
                     <tbody
                         id="submissionTableBody"
@@ -604,6 +806,7 @@ th {
     </div>
 
 
+
     <!-- =================================================
          STUDENT DASHBOARD
     ================================================== -->
@@ -612,6 +815,7 @@ th {
         id="studentDashboard"
         class="container hidden"
     >
+
 
         <div class="card">
 
@@ -627,7 +831,10 @@ th {
         </div>
 
 
-        <!-- AVAILABLE ASSIGNMENTS -->
+
+        <!-- =================================================
+             AVAILABLE ASSIGNMENTS
+        ================================================== -->
 
         <div class="card">
 
@@ -643,13 +850,17 @@ th {
         </div>
 
 
-        <!-- MY SUBMISSIONS -->
+
+        <!-- =================================================
+             MY SUBMISSIONS
+        ================================================== -->
 
         <div class="card">
 
             <h3>
                 My Submissions
             </h3>
+
 
             <div class="table-wrapper">
 
@@ -658,12 +869,23 @@ th {
                     <thead>
 
                         <tr>
-                            <th>Assignment</th>
-                            <th>Submitted At</th>
-                            <th>Marks</th>
+
+                            <th>
+                                Assignment
+                            </th>
+
+                            <th>
+                                Submitted At
+                            </th>
+
+                            <th>
+                                Marks
+                            </th>
+
                         </tr>
 
                     </thead>
+
 
                     <tbody
                         id="mySubmissionTableBody"
@@ -680,17 +902,28 @@ th {
 </div>
 
 
+
 <script>
+
 "use strict";
+
 
 /* =====================================================
    STORAGE KEYS
 ===================================================== */
 
-const USERS_KEY = "ams_users";
-const ASSIGNMENTS_KEY = "ams_assignments";
-const SUBMISSIONS_KEY = "ams_submissions";
-const CURRENT_USER_KEY = "ams_currentUser";
+const USERS_KEY =
+    "ams_users";
+
+const ASSIGNMENTS_KEY =
+    "ams_assignments";
+
+const SUBMISSIONS_KEY =
+    "ams_submissions";
+
+const CURRENT_USER_KEY =
+    "ams_currentUser";
+
 
 
 /* =====================================================
@@ -766,6 +999,7 @@ const defaultUsers = [
 ];
 
 
+
 /* =====================================================
    STORAGE INITIALIZATION
 ===================================================== */
@@ -793,12 +1027,15 @@ function initializeStorage() {
 
     defaultUsers.forEach(function(demoUser) {
 
-        const index = users.findIndex(function(user) {
+        const index =
+            users.findIndex(function(user) {
 
-            return String(user.username || "").toLowerCase()
-                === demoUser.username.toLowerCase();
+                return String(
+                    user.username || ""
+                ).toLowerCase() ===
+                demoUser.username.toLowerCase();
 
-        });
+            });
 
 
         if (index === -1) {
@@ -824,7 +1061,9 @@ function initializeStorage() {
 
 
     if (
-        localStorage.getItem(ASSIGNMENTS_KEY) === null
+        localStorage.getItem(
+            ASSIGNMENTS_KEY
+        ) === null
     ) {
 
         localStorage.setItem(
@@ -836,7 +1075,9 @@ function initializeStorage() {
 
 
     if (
-        localStorage.getItem(SUBMISSIONS_KEY) === null
+        localStorage.getItem(
+            SUBMISSIONS_KEY
+        ) === null
     ) {
 
         localStorage.setItem(
@@ -849,6 +1090,7 @@ function initializeStorage() {
 }
 
 
+
 /* =====================================================
    GET DATA
 ===================================================== */
@@ -857,9 +1099,12 @@ function getUsers() {
 
     try {
 
-        const users = JSON.parse(
-            localStorage.getItem(USERS_KEY) || "[]"
-        );
+        const users =
+            JSON.parse(
+                localStorage.getItem(
+                    USERS_KEY
+                ) || "[]"
+            );
 
         return Array.isArray(users)
             ? users
@@ -878,9 +1123,12 @@ function getAssignments() {
 
     try {
 
-        const assignments = JSON.parse(
-            localStorage.getItem(ASSIGNMENTS_KEY) || "[]"
-        );
+        const assignments =
+            JSON.parse(
+                localStorage.getItem(
+                    ASSIGNMENTS_KEY
+                ) || "[]"
+            );
 
         return Array.isArray(assignments)
             ? assignments
@@ -899,9 +1147,12 @@ function getSubmissions() {
 
     try {
 
-        const submissions = JSON.parse(
-            localStorage.getItem(SUBMISSIONS_KEY) || "[]"
-        );
+        const submissions =
+            JSON.parse(
+                localStorage.getItem(
+                    SUBMISSIONS_KEY
+                ) || "[]"
+            );
 
         return Array.isArray(submissions)
             ? submissions
@@ -914,6 +1165,7 @@ function getSubmissions() {
     }
 
 }
+
 
 
 /* =====================================================
@@ -940,6 +1192,7 @@ function saveSubmissions(submissions) {
 }
 
 
+
 /* =====================================================
    HTML ESCAPE
 ===================================================== */
@@ -956,6 +1209,7 @@ function escapeHTML(value) {
 }
 
 
+
 /* =====================================================
    CURRENT USER
 ===================================================== */
@@ -963,11 +1217,15 @@ function escapeHTML(value) {
 function getCurrentUser() {
 
     const data =
-        localStorage.getItem(CURRENT_USER_KEY);
+        localStorage.getItem(
+            CURRENT_USER_KEY
+        );
+
 
     if (!data) {
         return null;
     }
+
 
     try {
 
@@ -986,35 +1244,57 @@ function getCurrentUser() {
 }
 
 
+
 /* =====================================================
    INITIALIZE
 ===================================================== */
 
 initializeStorage();
 
-const loginBox = document.querySelector(".login-box");
-const btn=document.querySelector(".primary-btn");
+
+const roleSwitch =
+    document.getElementById(
+        "roleSwitch"
+    );
+
+
+const roleStudent =
+    document.getElementById(
+        "roleStudent"
+    );
+
+
+const roleFaculty =
+    document.getElementById(
+        "roleFaculty"
+    );
+
+
+const usernameInput =
+    document.getElementById(
+        "username"
+    );
+
+
+const demoCredentials =
+    document.getElementById(
+        "demoCredentials"
+    );
+
+
+
+/* =====================================================
+   CHART VARIABLES
+===================================================== */
+
+let performanceChartInstance = null;
+let marksPerformanceChartInstance = null;
+
 
 
 /* =====================================================
    ROLE SLIDER
 ===================================================== */
-
-const roleSwitch =
-    document.getElementById("roleSwitch");
-
-const roleStudent =
-    document.getElementById("roleStudent");
-
-const roleFaculty =
-    document.getElementById("roleFaculty");
-
-const usernameInput =
-    document.getElementById("username");
-
-const demoCredentials =
-    document.getElementById("demoCredentials");
-
 
 function updateRoleSlider() {
 
@@ -1029,6 +1309,7 @@ function updateRoleSlider() {
         selectedRole === "student"
     );
 
+
     roleSwitch.classList.toggle(
         "faculty",
         selectedRole === "faculty"
@@ -1039,6 +1320,7 @@ function updateRoleSlider() {
 
         usernameInput.placeholder =
             "e.g. faculty";
+
 
         demoCredentials.innerHTML =
             "Faculty: faculty / 1234";
@@ -1074,12 +1356,15 @@ roleStudent.addEventListener(
     updateRoleSlider
 );
 
+
 roleFaculty.addEventListener(
     "change",
     updateRoleSlider
 );
 
+
 updateRoleSlider();
+
 
 
 /* =====================================================
@@ -1113,20 +1398,28 @@ document.getElementById(
             ).value;
 
 
-        const users = getUsers();
+        const users =
+            getUsers();
 
 
         const user =
             users.find(function(item) {
 
                 return (
-                    String(item.username || "")
-                        .toLowerCase() ===
+
+                    String(
+                        item.username || ""
+                    ).toLowerCase() ===
                     username.toLowerCase()
+
                     &&
+
                     item.password === password
+
                     &&
+
                     item.role === selectedRole
+
                 );
 
             });
@@ -1140,7 +1433,8 @@ document.getElementById(
 
         if (!user) {
 
-            message.className = "error";
+            message.className =
+                "error";
 
             message.textContent =
                 "Invalid username, password, or selected account type.";
@@ -1158,10 +1452,12 @@ document.getElementById(
 
         message.textContent = "";
 
+
         openDashboard();
 
     }
 );
+
 
 
 /* =====================================================
@@ -1170,7 +1466,9 @@ document.getElementById(
 
 function openDashboard() {
 
-    const user = getCurrentUser();
+    const user =
+        getCurrentUser();
+
 
     if (!user) {
         return;
@@ -1190,14 +1488,23 @@ function openDashboard() {
     document.getElementById(
         "welcomeUser"
     ).textContent =
-         user.username +
+        user.username +
         " (" +
         user.role +
         ")";
-    document.getElementById("welcomeUser").style.color="orange";
-    document.getElementById("welcomeUser").style.fontWeight="bold";
+
 
     document.getElementById(
+        "welcomeUser"
+    ).style.color =
+        "orange";
+
+
+    document.getElementById(
+        "welcomeUser"
+    ).style.fontWeight =
+        "bold";
+document.getElementById(
         "facultyDashboard"
     ).classList.add("hidden");
 
@@ -1215,7 +1522,6 @@ function openDashboard() {
 
 
         displayFacultyAssignments();
-
         displayAllSubmissions();
 
     } else {
@@ -1233,6 +1539,24 @@ function openDashboard() {
 
 }
 
+
+
+/* =====================================================
+   FACULTY NAVIGATION
+===================================================== */
+
+function showFacultyDashboard() {
+    const user = getCurrentUser();
+
+    if (!user || user.role !== "faculty") {
+        return;
+    }
+
+    document.getElementById("facultyAnalyticsSection").classList.remove("hidden");
+    document.getElementById("createAssignmentCard").classList.add("hidden");
+
+    updateFacultyCharts();
+}
 
 /* =====================================================
    LOGOUT
@@ -1264,9 +1588,11 @@ function logout() {
 
     roleFaculty.checked = false;
 
+
     updateRoleSlider();
 
 }
+
 
 
 /* =====================================================
@@ -1303,6 +1629,7 @@ function showCreateAssignment() {
 }
 
 
+
 /* =====================================================
    CANCEL FORM
 ===================================================== */
@@ -1324,6 +1651,7 @@ function cancelAssignmentForm() {
     ).value = "";
 
 }
+
 
 
 /* =====================================================
@@ -1375,7 +1703,8 @@ document.getElementById(
             !deadline
         ) {
 
-            message.className = "error";
+            message.className =
+                "error";
 
             message.textContent =
                 "Please fill all required fields.";
@@ -1395,7 +1724,8 @@ document.getElementById(
             )
         ) {
 
-            message.className = "error";
+            message.className =
+                "error";
 
             message.textContent =
                 "Invalid deadline.";
@@ -1410,7 +1740,8 @@ document.getElementById(
             deadlineDate <= new Date()
         ) {
 
-            message.className = "error";
+            message.className =
+                "error";
 
             message.textContent =
                 "Deadline must be in the future.";
@@ -1422,6 +1753,7 @@ document.getElementById(
 
         const assignments =
             getAssignments();
+
 
 
         /* =================================================
@@ -1443,7 +1775,8 @@ document.getElementById(
 
             if (index === -1) {
 
-                message.className = "error";
+                message.className =
+                    "error";
 
                 message.textContent =
                     "Assignment not found.";
@@ -1457,30 +1790,39 @@ document.getElementById(
 
                 ...assignments[index],
 
-                title: title,
+                title:
+                    title,
 
-                description: description,
+                description:
+                    description,
 
-                deadline: deadline
+                deadline:
+                    deadline
 
             };
 
 
-            saveAssignments(assignments);
+            saveAssignments(
+                assignments
+            );
 
 
             cancelAssignmentForm();
 
             displayFacultyAssignments();
 
+            updateFacultyCharts();
+
 
             alert(
                 "Assignment updated successfully."
             );
 
+
             return;
 
         }
+
 
 
         /* =================================================
@@ -1521,6 +1863,8 @@ document.getElementById(
 
         displayFacultyAssignments();
 
+        updateFacultyCharts();
+
 
         alert(
             "Assignment posted successfully."
@@ -1528,6 +1872,7 @@ document.getElementById(
 
     }
 );
+
 
 
 /* =====================================================
@@ -1580,6 +1925,7 @@ function displayFacultyAssignments() {
                             )}
                         </h3>
 
+
                         <p>
 
                             <strong>
@@ -1591,6 +1937,7 @@ function displayFacultyAssignments() {
                             )}
 
                         </p>
+
 
                         <p>
 
@@ -1605,6 +1952,7 @@ function displayFacultyAssignments() {
                             )}
 
                         </p>
+
 
                         <p>
 
@@ -1626,6 +1974,7 @@ function displayFacultyAssignments() {
 
                         </p>
 
+
                         <div class="actions">
 
                             <button
@@ -1634,6 +1983,7 @@ function displayFacultyAssignments() {
                             >
                                 Edit
                             </button>
+
 
                             <button
                                 class="danger-btn"
@@ -1652,6 +2002,7 @@ function displayFacultyAssignments() {
         ).join("");
 
 }
+
 
 
 /* =====================================================
@@ -1728,6 +2079,7 @@ function editAssignment(id) {
 }
 
 
+
 /* =====================================================
    DELETE ASSIGNMENT
 ===================================================== */
@@ -1765,10 +2117,8 @@ function deleteAssignment(id) {
     );
 
 
-    /*
-       Delete submissions associated
-       with this assignment.
-    */
+
+    /* Delete related submissions */
 
     let submissions =
         getSubmissions();
@@ -1778,8 +2128,10 @@ function deleteAssignment(id) {
         submissions.filter(
             function(item) {
 
-                return String(item.assignmentId) !==
-                    String(id);
+                return String(
+                    item.assignmentId
+                ) !==
+                String(id);
 
             }
         );
@@ -1794,12 +2146,15 @@ function deleteAssignment(id) {
 
     displayAllSubmissions();
 
+    updateFacultyCharts();
+
 
     alert(
         "Assignment deleted successfully."
     );
 
 }
+
 
 
 /* =====================================================
@@ -1857,11 +2212,23 @@ function displayStudentAssignments() {
                         function(item) {
 
                             return (
-                                String(item.assignmentId) ===
-                                String(assignment.id)
+
+                                String(
+                                    item.assignmentId
+                                ) ===
+                                String(
+                                    assignment.id
+                                )
+
                                 &&
-                                String(item.studentId) ===
-                                String(user.id)
+
+                                String(
+                                    item.studentId
+                                ) ===
+                                String(
+                                    user.id
+                                )
+
                             );
 
                         }
@@ -1873,16 +2240,22 @@ function displayStudentAssignments() {
                     <div class="assignment-card">
 
                         <h3>
+
                             ${escapeHTML(
                                 assignment.title
                             )}
+
                         </h3>
 
+
                         <p>
+
                             ${escapeHTML(
                                 assignment.description
                             )}
+
                         </p>
+
 
                         <p>
 
@@ -1903,6 +2276,7 @@ function displayStudentAssignments() {
                             </span>
 
                         </p>
+
 
                         <p
                             id="countdown-${assignment.id}"
@@ -1956,6 +2330,7 @@ function displayStudentAssignments() {
 
                                 </p>
 
+
                                 <p>
 
                                     <strong>
@@ -1984,6 +2359,7 @@ function displayStudentAssignments() {
 
                                     </label>
 
+
                                     <input
                                         type="file"
                                         accept="application/pdf,.pdf"
@@ -1994,6 +2370,7 @@ function displayStudentAssignments() {
                                                 : ""
                                         }
                                     >
+
 
                                     <button
                                         class="success-btn"
@@ -2015,6 +2392,7 @@ function displayStudentAssignments() {
 
                                     </button>
 
+
                                     <p
                                         id="submit-message-${assignment.id}"
                                     ></p>
@@ -2035,6 +2413,7 @@ function displayStudentAssignments() {
 }
 
 
+
 /* =====================================================
    DEADLINE CHECK
 ===================================================== */
@@ -2047,6 +2426,7 @@ function isDeadlinePassed(deadline) {
     );
 
 }
+
 
 
 /* =====================================================
@@ -2145,7 +2525,8 @@ function submitAssignment(
         input.files.length === 0
     ) {
 
-        message.className = "error";
+        message.className =
+            "error";
 
         message.textContent =
             "Please select a PDF file.";
@@ -2159,11 +2540,6 @@ function submitAssignment(
         input.files[0];
 
 
-    /*
-       Check both MIME type and
-       file extension.
-    */
-
     const isPDF =
         file.type === "application/pdf" ||
         file.name.toLowerCase().endsWith(".pdf");
@@ -2171,7 +2547,8 @@ function submitAssignment(
 
     if (!isPDF) {
 
-        message.className = "error";
+        message.className =
+            "error";
 
         message.textContent =
             "Only PDF files are allowed.";
@@ -2188,7 +2565,9 @@ function submitAssignment(
         );
 
 
-    submitButton.disabled = true;
+    submitButton.disabled =
+        true;
+
 
     submitButton.textContent =
         "Uploading...";
@@ -2199,10 +2578,8 @@ function submitAssignment(
         .then(
             function(dataURL) {
 
-                /*
-                   Check deadline again
-                   after file reading.
-                */
+
+                /* Check deadline again */
 
                 if (
                     isDeadlinePassed(
@@ -2232,11 +2609,23 @@ function submitAssignment(
                         function(item) {
 
                             return (
-                                String(item.assignmentId) ===
-                                String(assignmentId)
+
+                                String(
+                                    item.assignmentId
+                                ) ===
+                                String(
+                                    assignmentId
+                                )
+
                                 &&
-                                String(item.studentId) ===
-                                String(user.id)
+
+                                String(
+                                    item.studentId
+                                ) ===
+                                String(
+                                    user.id
+                                )
+
                             );
 
                         }
@@ -2313,11 +2702,14 @@ function submitAssignment(
                     message.textContent =
                         "Could not save the PDF. The PDF may be too large for browser storage.";
 
+
                     submitButton.disabled =
                         false;
 
+
                     submitButton.textContent =
                         "Submit Assignment";
+
 
                     return;
 
@@ -2327,6 +2719,7 @@ function submitAssignment(
                 message.className =
                     "success";
 
+
                 message.textContent =
                     "Assignment submitted successfully.";
 
@@ -2334,6 +2727,11 @@ function submitAssignment(
                 displayStudentAssignments();
 
                 displayMySubmissions();
+
+
+                /* Update faculty dashboard data */
+
+                updateFacultyCharts();
 
             }
         )
@@ -2356,6 +2754,7 @@ function submitAssignment(
                 submitButton.disabled =
                     false;
 
+
                 submitButton.textContent =
                     "Submit Assignment";
 
@@ -2363,6 +2762,7 @@ function submitAssignment(
         );
 
 }
+
 
 
 /* =====================================================
@@ -2408,6 +2808,7 @@ function readFileAsDataURL(file) {
 }
 
 
+
 /* =====================================================
    DISPLAY ALL SUBMISSIONS
 ===================================================== */
@@ -2442,6 +2843,8 @@ function displayAllSubmissions() {
 
         `;
 
+        updateFacultyCharts();
+
         return;
 
     }
@@ -2467,8 +2870,12 @@ function displayAllSubmissions() {
                     assignments.find(
                         function(item) {
 
-                            return String(item.id) ===
-                                String(submission.assignmentId);
+                            return String(
+                                item.id
+                            ) ===
+                            String(
+                                submission.assignmentId
+                            );
 
                         }
                     );
@@ -2550,6 +2957,7 @@ function displayAllSubmissions() {
                                         View PDF
                                     </button>
 
+
                                     <span class="pdf-name">
 
                                         ${escapeHTML(
@@ -2586,14 +2994,14 @@ function displayAllSubmissions() {
                                 max="100"
                                 id="marks-${submission.id}"
                                 value="${
-                                    submission.marks ??
-                                    ""
+                                    submission.marks ?? ""
                                 }"
                                 style="
                                     width:90px;
                                     padding:7px;
                                 "
                             >
+
 
                             <button
                                 class="success-btn"
@@ -2611,11 +3019,15 @@ function displayAllSubmissions() {
             }
         ).join("");
 
+
+    updateFacultyCharts();
+
 }
 
 
+
 /* =====================================================
-   VIEW PDF - FIXED
+   VIEW PDF
 ===================================================== */
 
 function viewPDF(
@@ -2678,10 +3090,6 @@ function viewPDF(
 
 
     try {
-
-        /*
-           Convert Data URL to binary data.
-        */
 
         const parts =
             submission.fileData.split(",");
@@ -2749,17 +3157,11 @@ function viewPDF(
             );
 
 
-        /*
-           Create a temporary browser URL.
-        */
-
         const pdfURL =
-            URL.createObjectURL(blob);
+            URL.createObjectURL(
+                blob
+            );
 
-
-        /*
-           Open a new tab.
-        */
 
         const pdfWindow =
             window.open(
@@ -2783,11 +3185,6 @@ function viewPDF(
         }
 
 
-        /*
-           Keep URL alive long enough
-           for the PDF viewer.
-        */
-
         setTimeout(
             function() {
 
@@ -2806,6 +3203,7 @@ function viewPDF(
             error
         );
 
+
         alert(
             "Unable to open the PDF file."
         );
@@ -2813,6 +3211,7 @@ function viewPDF(
     }
 
 }
+
 
 
 /* =====================================================
@@ -2915,12 +3314,15 @@ function saveMarks(
 
     displayMySubmissions();
 
+    updateFacultyCharts();
+
 
     alert(
         "Marks saved successfully."
     );
 
 }
+
 
 
 /* =====================================================
@@ -2956,8 +3358,12 @@ function displayMySubmissions() {
         submissions.filter(
             function(item) {
 
-                return String(item.studentId) ===
-                    String(user.id);
+                return String(
+                    item.studentId
+                ) ===
+                String(
+                    user.id
+                );
 
             }
         );
@@ -2990,8 +3396,12 @@ function displayMySubmissions() {
                     assignments.find(
                         function(item) {
 
-                            return String(item.id) ===
-                                String(submission.assignmentId);
+                            return String(
+                                item.id
+                            ) ===
+                            String(
+                                submission.assignmentId
+                            );
 
                         }
                     );
@@ -3052,6 +3462,7 @@ function displayMySubmissions() {
 }
 
 
+
 /* =====================================================
    FORMAT DATE
 ===================================================== */
@@ -3078,6 +3489,7 @@ function formatDate(
     return date.toLocaleString();
 
 }
+
 
 
 /* =====================================================
@@ -3151,6 +3563,217 @@ function getRemainingTime(
 
 }
 
+
+
+/* =====================================================
+   FACULTY DASHBOARD CHARTS
+===================================================== */
+
+function updateFacultyCharts() {
+    const dashboard = document.getElementById("facultyDashboard");
+
+    if (!dashboard || dashboard.classList.contains("hidden")) {
+        return;
+    }
+
+    const users = getUsers();
+    const assignments = getAssignments();
+    const submissions = getSubmissions();
+
+    const students = users.filter(function(user) {
+        return user.role === "student";
+    });
+
+    const studentLabels = students.map(function(student) {
+        return student.name || student.username;
+    });
+
+    const studentsSubmittedCount = students.filter(function(student) {
+        return submissions.some(function(submission) {
+            return String(submission.studentId) === String(student.id);
+        });
+    }).length;
+
+    const studentsNotSubmittedCount = students.length - studentsSubmittedCount;
+
+    if (performanceChartInstance) {
+        performanceChartInstance.destroy();
+    }
+
+    if (marksPerformanceChartInstance) {
+        marksPerformanceChartInstance.destroy();
+    }
+
+    const performanceCanvas = document.getElementById("performanceChart");
+
+    if (performanceCanvas) {
+        performanceChartInstance = new Chart(performanceCanvas, {
+            type: "bar",
+            data: {
+                labels: ["Submitted", "Not Submitted"],
+                datasets: [{
+                    label: "Number of Students",
+                    data: [studentsSubmittedCount, studentsNotSubmittedCount],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        });
+    }
+
+    const studentMarks = students.map(function(student) {
+        const marks = submissions
+            .filter(function(submission) {
+                return String(submission.studentId) === String(student.id) &&
+                    submission.marks !== null &&
+                    submission.marks !== undefined &&
+                    submission.marks !== "" &&
+                    !Number.isNaN(Number(submission.marks));
+            })
+            .map(function(submission) {
+                return Number(submission.marks);
+            });
+
+        if (marks.length === 0) {
+            return null;
+        }
+
+        return marks.reduce(function(total, mark) {
+            return total + mark;
+        }, 0) / marks.length;
+    });
+
+    const markedStudents = [];
+
+    students.forEach(function(student, index) {
+        if (studentMarks[index] !== null) {
+            const average = Number(studentMarks[index].toFixed(1));
+            const category = average >= 60 ? "High" : "Low";
+
+            markedStudents.push({
+                label: (student.name || student.username) + " (" + category + ")",
+                value: average
+            });
+        }
+    });
+
+    const marksCanvas = document.getElementById("marksPerformanceChart");
+
+    if (marksCanvas) {
+        marksPerformanceChartInstance = new Chart(marksCanvas, {
+            type: "pie",
+            data: {
+                labels: markedStudents.map(function(item) {
+                    return item.label;
+                }),
+                datasets: [{
+                    data: markedStudents.map(function(item) {
+                        return item.value;
+                    }),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "right"
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ": " + context.raw + " marks average";
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+/* =====================================================
+   DOWNLOAD SUBMISSIONS AS EXCEL
+===================================================== */
+
+function downloadSubmissionsExcel() {
+    const user = getCurrentUser();
+
+    if (!user || user.role !== "faculty") {
+        alert("Only faculty can download submissions.");
+        return;
+    }
+
+    const submissions = getSubmissions();
+    const assignments = getAssignments();
+
+    if (submissions.length === 0) {
+        alert("There are no submissions to download.");
+        return;
+    }
+
+    if (typeof XLSX === "undefined") {
+        alert("Excel library could not be loaded. Please check your internet connection.");
+        return;
+    }
+
+    const excelData = submissions.map(function(submission) {
+        const assignment = assignments.find(function(item) {
+            return String(item.id) === String(submission.assignmentId);
+        });
+
+        return {
+            "Student Name": submission.studentName || "",
+            "Assignment Topic": assignment ? assignment.title : "Deleted Assignment",
+            "Submitted At": formatDate(submission.submittedAt),
+            "Marks": submission.marks === null ||
+                     submission.marks === undefined ||
+                     submission.marks === ""
+                ? "Not Graded"
+                : submission.marks
+        };
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        "Student Submissions"
+    );
+
+    worksheet["!cols"] = [
+        { wch: 25 },
+        { wch: 35 },
+        { wch: 25 },
+        { wch: 12 }
+    ];
+
+    const today = new Date().toISOString().split("T")[0];
+
+    XLSX.writeFile(
+        workbook,
+        "Student_Submissions_" + today + ".xlsx"
+    );
+}
 
 /* =====================================================
    DEADLINE TIMER
@@ -3249,6 +3872,7 @@ setInterval(
 );
 
 
+
 /* =====================================================
    AUTO LOGIN
 ===================================================== */
@@ -3264,4 +3888,5 @@ if (
 </script>
 
 </body>
+
 </html>
