@@ -432,7 +432,7 @@ function logout() {
     );
 
     window.location.href =
-        "assignment-management-system.html";
+        "index.html";
 }
 
 const user = getCurrentUser();
@@ -442,7 +442,7 @@ if (!user || user.role !== "faculty") {
     alert("Please login as faculty to view the dashboard.");
 
     window.location.href =
-        "assignment-management-system.html";
+        "index.html";
 
 } else {
 
